@@ -3,6 +3,7 @@ package com.reactivestudio.retrofitcoroutines.util
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.reactivestudio.retrofitcoroutines.App
 import com.reactivestudio.retrofitcoroutines.ViewModelFactory
 

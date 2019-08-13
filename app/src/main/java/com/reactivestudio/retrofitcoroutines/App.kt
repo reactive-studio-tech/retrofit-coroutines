@@ -1,9 +1,9 @@
 package com.reactivestudio.retrofitcoroutines
 
 import android.app.Application
-import com.reactivestudio.retrofitcoroutines.data.api.SampleApi
-import com.reactivestudio.retrofitcoroutines.data.repository.SampleRepository
-import com.reactivestudio.retrofitcoroutines.data.repository.SampleRepositoryImpl
+import com.reactivestudio.retrofitcoroutines.data.api.GithubApi
+import com.reactivestudio.retrofitcoroutines.data.repository.GithubRepository
+import com.reactivestudio.retrofitcoroutines.data.repository.GithubRepositoryImpl
 import com.reactivestudio.retrofitcoroutines.data.source.remote.RemoteDataSource
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -15,7 +15,7 @@ class App: Application() {
 
     private val apiUrl = "https://api.github.com"
 
-    lateinit var repository: SampleRepository
+    lateinit var repository: GithubRepository
 
     override fun onCreate() {
         super.onCreate()
@@ -31,10 +31,10 @@ class App: Application() {
             .client(okHttp)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val api = retrofit.create(SampleApi::class.java)
+        val api = retrofit.create(GithubApi::class.java)
         val remoteDataSource = RemoteDataSource(api)
 
-        repository = SampleRepositoryImpl(remoteDataSource)
+        repository = GithubRepositoryImpl(remoteDataSource)
     }
 
 

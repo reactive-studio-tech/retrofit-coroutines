@@ -1,23 +1,30 @@
 package com.reactivestudio.retrofitcoroutines.ui.organization
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.reactivestudio.retrofitcoroutines.data.model.GithubOrganization
-import com.reactivestudio.retrofitcoroutines.data.repository.SampleRepository
+import com.reactivestudio.retrofitcoroutines.data.repository.GithubRepository
+import com.reactivestudio.retrofitcoroutines.util.Event
 import com.reactivestudio.retrofitcoroutines.util.Result
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class GithubOrganizationViewModel(private val repository: SampleRepository): ViewModel() {
+class GithubOrganizationViewModel(private val repository: GithubRepository): ViewModel() {
 
     private val _loading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _loading
 
     private val _githubOrganization = MutableLiveData<GithubOrganization>()
-    val githubOrganization: LiveData<GithubOrganization> = _githubOrganization
+    val githubOrganization: MediatorLiveData<GithubOrganization> = MediatorLiveData()
+
+    private val _openReposCommand = MutableLiveData<Event<Unit>>()
+    val openReposCommand: LiveData<Event<Unit>> = _openReposCommand
+
+    init {
+        githubOrganization.value = null
+        githubOrganization.addSource(_githubOrganization, githubOrganization::setValue)
+        loadOrganization()
+    }
 
     fun loadOrganization() {
         viewModelScope.launch {
@@ -35,7 +42,11 @@ class GithubOrganizationViewModel(private val repository: SampleRepository): Vie
             else {
                 _githubOrganization.value = null
             }
-
         }
     }
+
+    fun openRepos() {
+        _openReposCommand.value = Event(Unit)
+    }
+
 }

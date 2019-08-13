@@ -14,9 +14,10 @@
 
         <ImageView
                 android:id="@+id/organizationImage"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="16dp"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginBottom="8dp"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{viewmodel.githubOrganization.avatar_url}"
                 app:layout_constraintTop_toTopOf="parent"
@@ -27,16 +28,16 @@
                 android:id="@+id/organizationName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:textStyle="bold"
-                android:textSize="19sp"
+                android:textSize="23sp"
                 android:gravity="center"
                 android:textColor="#222222"
+                android:textAllCaps="true"
                 android:text="@{viewmodel.githubOrganization.login}"
+                tools:text="Reactive studio"
                 app:layout_constraintTop_toBottomOf="@+id/organizationImage"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
-
 
         <TextView
                 android:id="@+id/organizationDescription"
@@ -48,9 +49,23 @@
                 android:gravity="center"
                 android:textColor="#222222"
                 android:text="@{viewmodel.githubOrganization.description}"
+                tools:text="Android development agency"
                 app:layout_constraintTop_toBottomOf="@+id/organizationName"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+                android:id="@+id/loadRepositoriesButton"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?actionBarSize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_margin="16dp"
+                android:text="@string/load_repositories"
+                android:onClick="@{() -> viewmodel.openRepos()}"/>
 
         <ProgressBar
                 android:id="@+id/progressView"
@@ -61,7 +76,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:setVisible="@{viewmodel.isLoading}"/>
+                app:setVisible="@{safeUnbox(viewmodel.isLoading)}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

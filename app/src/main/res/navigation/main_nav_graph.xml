@@ -8,10 +8,20 @@
     <fragment
             android:id="@+id/githubOrganizationFragment"
             android:name="com.reactivestudio.retrofitcoroutines.ui.organization.GithubOrganizationFragment"
-            android:label="Movies"
+            android:label="Github Organization"
             tools:layout="@layout/fragment_github_organization">
 
-
+        <action android:id="@+id/action_githubOrganizationFragment_to_githubRepositoriesFragment"
+                app:destination="@id/githubRepositoriesFragment"
+                app:enterAnim="@anim/fragment_fade_enter"
+                app:exitAnim="@anim/fragment_fade_exit"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
+
+    <fragment android:id="@+id/githubRepositoriesFragment"
+              android:name="com.reactivestudio.retrofitcoroutines.ui.repositories.GithubRepositoriesFragment"
+              android:label="Repositories"
+              tools:layout="@layout/fragment_github_repos"/>
 
 </navigation>
